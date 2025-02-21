@@ -1,0 +1,66 @@
+.wiggle {
+    animation: var(--wiggle-axis) var(--wiggle-duration) infinite
+        cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    --scale: 1;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes wiggle-x {
+    0%,
+    100% {
+        transform: scale(var(--scale)) translateX(0);
+    }
+    25% {
+        transform: scale(var(--scale))
+            translateX(calc(var(--wiggle-range) * -1));
+    }
+    50% {
+        transform: scale(var(--scale)) translateX(var(--wiggle-range));
+    }
+    75% {
+        transform: scale(var(--scale))
+            translateX(calc(var(--wiggle-range) * -0.5));
+    }
+}
+
+@keyframes wiggle-y {
+    0%,
+    100% {
+        transform: scale(var(--scale)) translateY(0);
+    }
+    25% {
+        transform: scale(var(--scale))
+            translateY(calc(var(--wiggle-range) * -1));
+    }
+    50% {
+        transform: scale(var(--scale)) translateY(var(--wiggle-range));
+    }
+    75% {
+        transform: scale(var(--scale))
+            translateY(calc(var(--wiggle-range) * -0.5));
+    }
+}
+
+.cell-text {
+    transition: text-shadow 0.3s ease, color 0.3s ease;
+}
+
+.cell-text:hover {
+    animation: 0.6s infinite alternate;
+    transform: scale(1.4);
+    transition: transform 0.60s ease;
+    cursor: pointer;
+}
+
+.snake {
+    background-color: rgba(255, 0, 0, 0.2);
+}
+
+.ladder {
+    background-color: rgba(72, 255, 0, 0.2);
+}
+
+.empty {
+    background-color: rgba(50, 50, 50, 0.2);
+}

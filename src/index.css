@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap");
+
+:root {
+    font-family: "VT323", monospace;
+}
+
+body {
+    margin: 0;
+    color: #beeeff;
+    background: #051021;
+}

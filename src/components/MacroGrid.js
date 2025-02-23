@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import "./MacroGrid.css";
 
 const gridSize = 10; // 10x10 grid
@@ -7,6 +8,7 @@ const snakes = [16, 48, 64, 79];
 const ladders = [3, 22, 41, 72, 99];
 
 const MacrodataGrid = () => {
+    const players = useSelector((state) => state.game.players);
     const cellRefs = useRef([]);
 
     useEffect(() => {
@@ -46,6 +48,10 @@ const MacrodataGrid = () => {
                 if (ladders.includes(cellNumber)) cellType = "ladder";
                 if (!cellType) cellType = "empty";
 
+                const playersInCell = players.filter(
+                    (player) => player.position === cellNumber
+                );
+
                 rowCells.push(
                     <div
                         key={cellNumber}
@@ -53,6 +59,24 @@ const MacrodataGrid = () => {
                         className={`w-12 h-12 flex items-center justify-center text-xl wiggle ${cellType}`}
                     >
                         <span className="cell-text">{cellNumber}</span>
+                        {playersInCell.map((player) => (
+                            <div
+                                key={player.id}
+                                className={`w-4 h-4 rounded-full ${
+                                    player.id === 1
+                                        ? "bg-cyan-400"
+                                        : "bg-red-400"
+                                } absolute`}
+                                style={{
+                                    bottom: `${
+                                        playersInCell.indexOf(player) * 5
+                                    }px`,
+                                    left: "50%",
+                                    transform: "translateX(-50%)",
+                                }}
+                                title={player.name}
+                            ></div>
+                        ))}
                     </div>
                 );
             }
@@ -63,15 +87,12 @@ const MacrodataGrid = () => {
     };
 
     return (
-        <div className="p-4 bg-gray-850 min-h-screen flex flex-col items-center">
+        <div className="p-4 bg-gray-850 flex flex-col items-center">
             <div
                 className="grid grid-cols-10 gap-1"
                 style={{ width: "max-content" }}
             >
                 {renderGrid()}
-            </div>
-            <div className="mt-6 border border-cyan-200 flex items-center relative overflow-hidden">
-            <h1 className="p-2 text-2xl">Let's play</h1>
             </div>
         </div>
     );
